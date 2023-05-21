@@ -5,9 +5,6 @@ function gitlink(){
     git config --global commit.gpgsign true
 }
 
-while [[ Bash_Sucks -eq Bash_Sucks ]]
-do
-
 echo 1 Setup new GPG Key
 echo 2 Use pre-existing key
 echo 3 exit
@@ -45,5 +42,4 @@ echo Ha chal apne baap ko mat sikha
 
 fi
 
-done
 
