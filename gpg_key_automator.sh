@@ -5,15 +5,15 @@ function gitlink(){
     git config --global commit.gpgsign true
 }
 
-echo 1 Setup new GPG Key
-echo 2 Use pre-existing key
+echo 1 Use pre-existing key
+echo 2 Setup new GPG Key
 echo 3 exit
 
 read -p "Input: " selection
 
 echo ${selection}
 
-if [[ selection = "1" ]]
+if [[ selection -eq "1" ]]
 then
 key= $(gpg --list-secret-keys --keyid-format=long | awk '/sec/ {print $2}')
 
@@ -31,7 +31,7 @@ gpg --armor --export "$rsa_key"
 
 gitlink $rsa_key
 
-elif [[ selection = "2" ]] 
+elif [[ selection -eq "2" ]] 
 then
 gpg --gen-key
 key= $(gpg --list-secret-keys --keyid-format=long | awk '/sec/ {print $2}')
@@ -40,7 +40,7 @@ gpg --armor --export "$rsa_key"
 
 gitlink $rsa_key
 
-elif [[ selection = "3" ]]
+elif [[ selection -eq "3" ]]
 then
 
 break
