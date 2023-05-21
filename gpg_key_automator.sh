@@ -9,13 +9,18 @@ echo 1 Setup new GPG Key
 echo 2 Use pre-existing key
 echo 3 exit
 
-read -p "Input:" selection
+read -p "Input: " selection
 
-if [[selection = 1]]; then
+echo ${selection}
+
+if [[ selection = "1" ]]
+then
 key= $(gpg --list-secret-keys --keyid-format=long | awk '/sec/ {print $2}')
 
-for ((i=1; i<${#key}; i++)) do
+for (( i=1 ; i<${#key} ; i++ )) do
 echo ${i} . $((key[${i}]):5:16)
+
+
 done
 
 rsa_key=$((key[${index}]):5:16)
@@ -26,7 +31,8 @@ gpg --armor --export "$rsa_key"
 
 gitlink $rsa_key
 
-elif[[selection = 2]] then
+elif [[ selection = "2" ]] 
+then
 gpg --gen-key
 key= $(gpg --list-secret-keys --keyid-format=long | awk '/sec/ {print $2}')
 rsa_key=$(echo ${key[@]} | tail -c 17)
@@ -34,7 +40,9 @@ gpg --armor --export "$rsa_key"
 
 gitlink $rsa_key
 
-elif[[selection = 3]] then
+elif [[ selection = "3" ]]
+then
+
 break
 
 else
