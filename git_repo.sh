@@ -32,7 +32,7 @@ else
     read -p ":" usr_name
     echo "usr_name=$usr_name" >> credential.env
     echo "Personal Access Token"
-    read -p ":" PAT
+    read -s -p ":" PAT
     echo "PAT=$PAT" >> credential.env
     chmod 400 credential.env
 fi
@@ -69,6 +69,13 @@ if [[ "$response" =~ "\"message\": \"name already exists on this account\"" ]]; 
     createRepo    
 fi
 
+if [[ "$response" =~ "\"message\": \"Bad credentials\"" ]]; then
+    echo "Credentials are wrong. RETRY...."
+    dataInput
+    createRepo    
+fi
+
+
 
 #doing first commit
 mkdir $repo_name
@@ -86,15 +93,3 @@ elif [[ $method -eq 2 ]]; then
 fi
 
 git push -u origin main
-
-
- 
-
-
-
-
-
-
-
-
-
